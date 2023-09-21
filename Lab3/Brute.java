@@ -83,22 +83,22 @@ public class Brute {
         frame.setPreferredSize(new Dimension(512,512));
 
         // Getting the points and painting them in the window.
-        points = getPoints(input);
-        render(frame, points);
+        points = getPoints(input); //n?
+        render(frame, points); //n?
 
         // Sorting points by natural order. Makes finding end points of line segments easy.
-        Collections.sort(points, new NaturalOrderComparator());
+        Collections.sort(points, new NaturalOrderComparator()); //n?
 
         long start = System.currentTimeMillis();
 
         // Iterate over and paint all line segments of 4 or more points.
         int count = points.size();
 
-        for (int i = 0; i < count - 3; ++i) {
-	    for (int j = i + 1; j < count - 2; ++j) {	
-		for (int k= j + 1; k < count - 1; ++k) {
+        for (int i = 0; i < count - 3; ++i) { //n
+	    for (int j = i + 1; j < count - 2; ++j) {	//n
+		for (int k= j + 1; k < count - 1; ++k) { //n
 		    if (points.get(i).slopeTo(points.get(j)) == points.get(i).slopeTo(points.get(k))) {
-                        for (int m = k + 1; m < count; ++m) {
+                        for (int m = k + 1; m < count; ++m) { //n
                             if (points.get(i).slopeTo(points.get(j)) == points.get(i).slopeTo(points.get(m))) {
                                 renderLine(frame, points.get(i), points.get(m));
                             } 

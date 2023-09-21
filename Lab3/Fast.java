@@ -83,11 +83,11 @@ public class Fast {
         frame.setPreferredSize(new Dimension(512,512));
 
         // Getting the points and painting them in the window.
-        points = getPoints(input);
-        render(frame, points);
+        points = getPoints(input); //n?
+        render(frame, points); //n?
 
 	// Sorting points by natural order (lexicographic order). Makes finding end points of line segments easy.
-        Collections.sort(points, new NaturalOrderComparator());
+        Collections.sort(points, new NaturalOrderComparator()); //n?
 
         long start = System.currentTimeMillis();
 
@@ -97,9 +97,75 @@ public class Fast {
 	//                     any functions. Good luck!                    //
 	//////////////////////////////////////////////////////////////////////
 
+    
+
+        for(Point o : points){ //n
+
+            Point origo = o;
+            ArrayList<Point> arrayLutningar = new ArrayList<>();
+            
+
+            for(Point p : points){ //n
+                if(origo != p){
+                    arrayLutningar.add(p);
+                    }
+                
+
+                }
+                Collections.sort(arrayLutningar, new SlopeOrderComparator(origo)); //n?
+
+                for(int i = 0; i < arrayLutningar.size(); i++){ //n
+                    try{
+                    if(origo.slopeTo(arrayLutningar.get(i)) == origo.slopeTo(arrayLutningar.get(i+1)) && origo.slopeTo(arrayLutningar.get(i)) == origo.slopeTo(arrayLutningar.get(i+2))){
+
+                        renderLine(frame, origo, arrayLutningar.get(i+2));
+
+                    }} catch(IndexOutOfBoundsException e){
+
+                    }
+                }
+            
+            
+            
+        } 
+
+
+    
+
         long end = System.currentTimeMillis();
         System.out.println("Computing all the line segments took: " + (end-start) + " milliseconds.");
     }
+
+    private static class SlopeOrderComparator implements Comparator<Point>{
+
+         private Point referencePoint;
+
+        public SlopeOrderComparator(Point referencePoint) {
+            this.referencePoint = referencePoint;
+        }
+
+        @Override
+        public int compare(Point a, Point b) {
+            double slopeA = referencePoint.slopeTo(a);
+            double slopeB = referencePoint.slopeTo(b);
+
+            if (slopeA < slopeB) {
+                return -1;
+            } else if (slopeA > slopeB) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        
+
+       
+
+        
+    }
+        
+    
+
 
     /**
      * Comparator class. Used to tell Collections.sort how to compare
