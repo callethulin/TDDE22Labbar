@@ -30,6 +30,6 @@
  *
  **********************************************************************/
 
-Brute: ordo(n^5). Där är 5 stycken for-loopar som går igenom n.
+Brute: ordo(n^4), då det är fyra nästlade forloopar.
 
-Sortering:
+Sortering: ordo(n^2), då det är två näslade forloopar.

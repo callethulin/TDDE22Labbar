@@ -11,13 +11,14 @@ import java.util.Scanner;
  * Brute force solution. To run: java brute.java < input.txt
  *
  * @author Magnus Nielsen
- * Largely based on existing C++-laborations by Tommy Olsson and Filip Strömbäck.
+ *         Largely based on existing C++-laborations by Tommy Olsson and Filip
+ *         Strömbäck.
  */
 public class Fast {
     /**
      * Clear the window and paint all the Points in the plane.
      *
-     * @param frame - The window / frame.
+     * @param frame  - The window / frame.
      * @param points - The points to render.
      */
     private static void render(JFrame frame, ArrayList<Point> points) {
@@ -33,8 +34,8 @@ public class Fast {
      * Draw a line between two points in the window / frame.
      *
      * @param frame - The frame / window in which you wish to draw the line.
-     * @param p1 - The first Point.
-     * @param p2 - The second Point.
+     * @param p1    - The first Point.
+     * @param p2    - The second Point.
      */
     private static void renderLine(JFrame frame, Point p1, Point p2) {
         p1.lineTo(p2, frame.getGraphics(), frame.getWidth(), frame.getHeight());
@@ -64,8 +65,8 @@ public class Fast {
 
         if (args.length != 1) {
             System.out.println("Usage: java Brute <input.txt>\n" +
-			       "Replace <input.txt> with your input file of preference, and possibly the path.\n" +
-			       "Ex: java Brute data/input1000.txt");
+                    "Replace <input.txt> with your input file of preference, and possibly the path.\n" +
+                    "Ex: java Brute data/input1000.txt");
             System.exit(0);
         }
 
@@ -80,65 +81,59 @@ public class Fast {
         // Creating frame for painting.
         frame = new JFrame();
         frame.setMinimumSize(new Dimension(512, 512));
-        frame.setPreferredSize(new Dimension(512,512));
+        frame.setPreferredSize(new Dimension(512, 512));
 
         // Getting the points and painting them in the window.
-        points = getPoints(input); //n?
-        render(frame, points); //n?
+        points = getPoints(input); // n
+        render(frame, points); // n
 
-	// Sorting points by natural order (lexicographic order). Makes finding end points of line segments easy.
-        Collections.sort(points, new NaturalOrderComparator()); //n?
+        // Sorting points by natural order (lexicographic order). Makes finding end
+        // points of line segments easy.
+        Collections.sort(points, new NaturalOrderComparator()); // n
 
         long start = System.currentTimeMillis();
 
-	//////////////////////////////////////////////////////////////////////
-	// Your code goes here. Draw any lines you find using the function  //
-	//  renderLine. Look at Brute.java if you are unsure if how to use  //
-	//                     any functions. Good luck!                    //
-	//////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
+        // Your code goes here. Draw any lines you find using the function //
+        // renderLine. Look at Brute.java if you are unsure if how to use //
+        // any functions. Good luck! //
+        //////////////////////////////////////////////////////////////////////
 
-    
-
-        for(Point o : points){ //n
+        for (Point o : points) { // n
 
             Point origo = o;
             ArrayList<Point> arrayLutningar = new ArrayList<>();
-            
 
-            for(Point p : points){ //n
-                if(origo != p){
+            for (Point p : points) { // n
+                if (origo != p) {
                     arrayLutningar.add(p);
-                    }
-                
-
                 }
-                Collections.sort(arrayLutningar, new SlopeOrderComparator(origo)); //n?
 
-                for(int i = 0; i < arrayLutningar.size(); i++){ //n
-                    try{
-                    if(origo.slopeTo(arrayLutningar.get(i)) == origo.slopeTo(arrayLutningar.get(i+1)) && origo.slopeTo(arrayLutningar.get(i)) == origo.slopeTo(arrayLutningar.get(i+2))){
+            }
+            Collections.sort(arrayLutningar, new SlopeOrderComparator(origo)); // n
 
-                        renderLine(frame, origo, arrayLutningar.get(i+2));
-
-                    }} catch(IndexOutOfBoundsException e){
+            for (int i = 0; i < arrayLutningar.size(); i++) { // n
+                try {
+                    if (origo.slopeTo(arrayLutningar.get(i)) == origo.slopeTo(arrayLutningar.get(i + 1))
+                            && origo.slopeTo(arrayLutningar.get(i)) == origo.slopeTo(arrayLutningar.get(i + 2))) {
+                                
+                        renderLine(frame, origo, arrayLutningar.get(i + 2)); 
 
                     }
+                } catch (IndexOutOfBoundsException e) {
+
                 }
-            
-            
-            
-        } 
+            }
 
-
-    
+        }
 
         long end = System.currentTimeMillis();
-        System.out.println("Computing all the line segments took: " + (end-start) + " milliseconds.");
+        System.out.println("Computing all the line segments took: " + (end - start) + " milliseconds.");
     }
 
-    private static class SlopeOrderComparator implements Comparator<Point>{
+    private static class SlopeOrderComparator implements Comparator<Point> {
 
-         private Point referencePoint;
+        private Point referencePoint;
 
         public SlopeOrderComparator(Point referencePoint) {
             this.referencePoint = referencePoint;
@@ -157,15 +152,8 @@ public class Fast {
                 return 0;
             }
         }
-        
 
-       
-
-        
     }
-        
-    
-
 
     /**
      * Comparator class. Used to tell Collections.sort how to compare
@@ -174,17 +162,16 @@ public class Fast {
      * and can contain data and other methods if you deem it useful.
      */
     private static class NaturalOrderComparator implements Comparator<Point> {
-        public int compare(Point a, Point b){
+        public int compare(Point a, Point b) {
             if (a.greaterThan(b)) {
-		// a is "greater" than b.
-		return 1;
+                // a is "greater" than b.
+                return 1;
             } else if (a.lessThan(b)) {
-		// a is "less" than b.
-		return -1;
-	    }
-	    // our two points are equal.
-	    return 0;
+                // a is "less" than b.
+                return -1;
+            }
+            // our two points are equal.
+            return 0;
         }
     }
 }
-

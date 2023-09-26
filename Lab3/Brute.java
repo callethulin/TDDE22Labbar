@@ -83,11 +83,11 @@ public class Brute {
         frame.setPreferredSize(new Dimension(512,512));
 
         // Getting the points and painting them in the window.
-        points = getPoints(input); //n?
-        render(frame, points); //n?
+        points = getPoints(input); //n
+        render(frame, points); //n
 
         // Sorting points by natural order. Makes finding end points of line segments easy.
-        Collections.sort(points, new NaturalOrderComparator()); //n?
+        Collections.sort(points, new NaturalOrderComparator()); //n
 
         long start = System.currentTimeMillis();
 
