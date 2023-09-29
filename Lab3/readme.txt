@@ -32,4 +32,4 @@
 
 Brute: ordo(n^4), då det är fyra nästlade forloopar.
 
-Sortering: ordo(n^2), då det är två nästlade forloopar.
+Sortering: ordo(n^2log(n)), då sort har nlog(n) tidskomlextitet och ligger i en forloop. Detta blir det största värdet för tidskomplexiteten.

@@ -99,36 +99,42 @@ public class Fast {
         // any functions. Good luck! //
         //////////////////////////////////////////////////////////////////////
 
+        //n^2log(n)???
+
+        ArrayList<Point> arrayLutningar = new ArrayList<>(); // 1
+        for(Point r : points){ // n
+
+             arrayLutningar.add(r); // 1
+
+        }
+
         for (Point o : points) { // n
 
-            Point origo = o;
-            ArrayList<Point> arrayLutningar = new ArrayList<>();
+            Point origo = o; // 1
+            
+            arrayLutningar.remove(o); // 1
+            
 
-            for (Point p : points) { // n
-                if (origo != p) {
-                    arrayLutningar.add(p);
-                }
+            
+            Collections.sort(arrayLutningar, new SlopeOrderComparator(origo)); // nlog(n)
 
-            }
-            Collections.sort(arrayLutningar, new SlopeOrderComparator(origo)); // n
-
-            for (int i = 0; i < arrayLutningar.size(); i++) { // n
+            for (int i = 0; i < arrayLutningar.size(); i++) { // n-1
                 try {
                     if (origo.slopeTo(arrayLutningar.get(i)) == origo.slopeTo(arrayLutningar.get(i + 1))
-                            && origo.slopeTo(arrayLutningar.get(i)) == origo.slopeTo(arrayLutningar.get(i + 2))) {
+                            && origo.slopeTo(arrayLutningar.get(i)) == origo.slopeTo(arrayLutningar.get(i + 2))) { // 1 
                                 
-                        renderLine(frame, origo, arrayLutningar.get(i + 2)); 
+                        renderLine(frame, origo, arrayLutningar.get(i + 2)); // 1
 
                     }
                 } catch (IndexOutOfBoundsException e) {
 
                 }
             }
-
+            arrayLutningar.add(o); // 1
         }
 
-        long end = System.currentTimeMillis();
-        System.out.println("Computing all the line segments took: " + (end - start) + " milliseconds.");
+        long end = System.currentTimeMillis(); // 1
+        System.out.println("Computing all the line segments took: " + (end - start) + " milliseconds."); // 1
     }
 
     private static class SlopeOrderComparator implements Comparator<Point> {
