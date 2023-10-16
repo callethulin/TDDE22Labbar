@@ -1,0 +1,6 @@
+Skriv en kort reflektion över de förändringar du har gjort. Vilken version är bättre? Varför? 
+Finns det fall då den “sämre” implementationen är bättre än den du valde ut?
+
+Vår version är bättre för att den har tidskomplexitet O(logn) och tidigare hade O(n) eftersom den heapeade om hela listan.
+
+Om swim behöver köras VÄLDIGT många gånger så kan det vara lika bra/bättre att köra den "sämre" implementationen.
